@@ -45,6 +45,7 @@ length = N.edge_properties["length"]    # m
 width = N.edge_properties["width"]      # m
 slope = N.edge_properties["slope"]      # degrees
 sat = N.edge_properties["sat"]          # boolean
+# read graph's properties
 B = N.graph_properties["B"]             # list
 S = N.graph_properties["S"]             # list
 # create new property maps
