@@ -13,11 +13,11 @@ N_s = load_graph("TimeExpandedNetwork0.xml.gz")
 cap0 = N.edge_properties["b"]        # traffic capacity
 tm0 = N.edge_properties["tm"]        # transit time
 
-# read TENetwork0 properties
+# read TENetwork properties
 B_s = N.graph_properties["B_s"]         # super source
 S_s = N.graph_properties["S_s"]         # super sink
-cap = N.vertex_properties["cap"]        # edges capacity
-res = N.vertex_properties["res"]        # edges residual
+cap = N.edge_properties["cap"]        # edges capacity
+res = N.edge_properties["res"]        # edges residual
 
 # initialise list of vertices for time slide
 vlist = N_s.new_graph_property("object")
@@ -36,7 +36,7 @@ maxFlow = 0
 while maxFlow < SUM_EVACUEE:
     time += 1
     # expand N_s with time slide
-    time_expand(time, N_s, vl)
+    time_expand(time, N_s, vl, N)
     # reread TENetwork0 properties
     # cap = N.vertex_properties["cap"]        # edges capacity
     # res = N.vertex_properties["res"]        # edges residual

@@ -26,8 +26,8 @@ B_s = N_s.new_graph_property("object")
 S_s = N_s.new_graph_property("object")
 
 # add super source B_s and super sink S_s to N_s
-B_s = N_s.add_vertex()
-S_s = N_s.add_vertex()
+B_s[N_s] = N_s.add_vertex()
+S_s[N_s] = N_s.add_vertex()
 
 # initialise distribution of spot
 for v in N.vertices():
@@ -55,7 +55,7 @@ N_s.edge_properties["cap"] = cap
 N_s.edge_properties["res"] = res
 # N_s.vertex_properties["ov"] = ov
 # N_s.vertex_properties["ts"] = ts
-N_s.graph_properties["B_s"] = B_s
-N_s.graph_properties["S_s"] = S_s
+N_s.graph_properties["B_s"] = B_s[N_s]
+N_s.graph_properties["S_s"] = S_s[N_s]
 
 N_s.save("TimeExpandedNetwork0.xml.gz")
