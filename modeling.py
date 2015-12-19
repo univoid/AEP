@@ -28,15 +28,8 @@ def f(phi):
     return -0.005581 * phi + 0.9367
 
 # define widening drop function
-def g(u, edges):
-    w_in  = 0
-    w_out = 0
-    for e in edges:
-        if e.source() == u:
-            w_out += width[e]
-        else:
-            w_in += width[e]
-    return w_in / w_out
+def g(u, cap):
+    return u.out_degree(cap) / u.in_degree(cap)
 
 # G: Original Graph
 G = load_graph("OrignalGraph.xml.gz")
@@ -68,7 +61,7 @@ for e in G.vertices():
         if type(u) == "widenning":
             cap[e] = f(phi[u]) * cap[e]
         elif type(u) == "bottleneck":
-            cap[e] = g(u, u.all_edges()) * cap[e]
+            cap[e] = g(u, cap) * cap[e]
     else:
         cap[e] = width[e] * RHO_M * DELTA_T
         tm[e] = length[e] // (V_F * h(slope[e]) * DELTA_T)
