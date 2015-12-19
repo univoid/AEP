@@ -1,8 +1,9 @@
-from graph_tool.all import *
 from __future__ import division
-# constants
+from math import floor
+from graph_tool.all import *
+# CONSTANT
 # free velocity
-V_F = 0         # m / s
+V_F = 2         # m / s
 # limited density
 RHO_M = 4       # persons / m^2
 # limited velocity
@@ -10,7 +11,7 @@ V_M = 0         # m / s
 # optimal density
 RHO_OPT = 2     # persons / m^2
 # optimal velocity
-V_OPT = 2       # m / s
+V_OPT = 0.75       # m / s
 # unit time
 DELTA_T = 10    # s
 
@@ -34,11 +35,10 @@ def g(u, cap):
 # G: Original Graph
 G = load_graph("OrignalGraph.xml.gz")
 # N: Transit Network
-# initialisation
 N = G.copy()
 
 # read vertex's properties
-type = N.vertex_properties["type"]      # widenning or bottleneck
+type = N.vertex_properties["type"]      # 'widenning' or 'bottleneck'
 phi = N.vertex_properties["phi"]        # radians
 # read edges' properties
 length = N.edge_properties["length"]    # m
@@ -59,9 +59,9 @@ for e in G.vertices():
 
         u = e.source()
         if type(u) == "widenning":
-            cap[e] = f(phi[u]) * cap[e]
+            cap[e] = floor(f(phi[u]) * cap[e])
         elif type(u) == "bottleneck":
-            cap[e] = g(u, cap) * cap[e]
+            cap[e] = floor(g(u, cap) * cap[e])
     else:
         cap[e] = width[e] * RHO_M * DELTA_T
         tm[e] = length[e] // (V_F * h(slope[e]) * DELTA_T)

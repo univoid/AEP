@@ -2,7 +2,7 @@ from graph_tool.all import *
 from time_expand import time_expand
 # CONSTANT
 # sum of evacuees
-SUM_EVACUEE = 48000
+SUM_EVACUEE = 48000     # person
 
 # load transit Network
 N = load_graph("TransitNetwork.xml.gz")
@@ -39,17 +39,20 @@ while maxFlow < SUM_EVACUEE:
     time_expand(time, N_s, vl, N)
     # reread TENetwork0 properties
     # cap = N.vertex_properties["cap"]        # edges capacity
-    # res = N.vertex_properties["res"]        # edges residual
+    res = N.vertex_properties["res"]        # edges residual
     # get new residual by max_flow
     res = boykov_kolmogorov_max_flow(N_s, B_s, S_s, cap, res)
     # get value of maxFlow
     maxFlow = sum((cap[e]-res[e]) for e in S_s.in_edges())
-    print 'time slide {}: max flow is {}'.format(time, maxFlow)
+    print('time slide {}: max flow is {}'.format(time, maxFlow))
     # save new residual property map
-    # N_s.graph_properties["res"] = res_s
+    N_s.graph_properties["res"] = res
 
 # print total time of Evacuation
-print 'total time of Evacuation is {}'.format(time)
+print('total time of Evacuation is {}'.format(time))
 
 # save new properties
 N_s.graph_properties["vlist"] = vlist
+
+# save Omage Graph
+N_s.save("OmageGraph.xml.gz")
