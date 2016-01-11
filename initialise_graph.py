@@ -24,7 +24,7 @@ S_s[N_s] = N_s.add_vertex()
 # initialise distribution of spot
 for v in N.vertices():
     # add new vertex to N_s as v_s
-    v_s = N_s.add_vertex();
+    v_s = N_s.add_vertex()
 
     # initialise Distribution of Evacuees
     if v in B:

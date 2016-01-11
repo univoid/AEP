@@ -1,8 +1,9 @@
 # CONSTANT
 # infinition
 INF = 500
-def time_expand(time, N_s, vl, N):
 
+
+def time_expand(time, N_s, vl, N):
     vl.append([])                           # new time slide for time
 
     # read transitNetwork properties
