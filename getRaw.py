@@ -39,7 +39,7 @@ with open("rawVertex.json", "w") as outFile:
         data = eval(stt)
         # parsing type
         type = data["type"]
-        data["type"] = type if type else None
+        data["type"] = type if type else "normal"
         b = data["b"]
         data["b"] = int(b) if b else 0
         r = data["r"]
