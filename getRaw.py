@@ -1,13 +1,25 @@
 from json import dump
-text_file = open("raw.csv", "r")
-line = text_file.readline()
-list = line.replace('|', '').replace('\"', '\'').split('}, {')
-ans = []
-with open("raw.json", "w") as file:
-    for st in list:
+
+# Edge input
+with open("rawEdge.csv", "r") as inFile:
+    line = inFile.readline()
+    l = line.replace('|', '').replace('\"', '\'').split('}, {')
+with open("rawEdge.json", "w") as outFile:
+    for st in l:
         stt = '{' + st + '}'
         stt = stt.replace('{', '{\'').replace(':', '\':').replace(', ', ', \'')
         temp = eval(stt)
-        ans.append(temp)
-        dump(temp, file)
-        file.write('\n')
+        dump(temp, outFile)
+        outFile.write('\n')
+
+# Vertex input
+with open("rawVertex.csv", "r") as inFile:
+    line = inFile.readline()
+    l = line.replace('|', '').replace('\"', '\'').split('}, {')
+with open("rawVertex.json", "w") as outFile:
+    for st in l:
+        stt = '{' + st + '}'
+        stt = stt.replace('{', '{\'').replace(':', '\':').replace(', ', ', \'')
+        temp = eval(stt)
+        dump(temp, outFile)
+        outFile.write('\n')
