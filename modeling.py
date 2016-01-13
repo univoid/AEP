@@ -33,7 +33,7 @@ def g(u, cap):
     return u.out_degree(cap) / u.in_degree(cap)
 
 # G: Original Graph
-G = load_graph("OrignalGraph.xml.gz")
+G = load_graph("OriginalGraph.xml.gz")
 # N: Transit Network
 N = G.copy()
 

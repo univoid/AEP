@@ -29,10 +29,21 @@ with open("rawEdge.json", "w") as outFile:
         outFile.write('\n')
 
 # Vertex input
+# position
+text_file = open("rawPos.csv", "r")
+line = text_file.readline()
+listPos = line.split('}, {')
+ansPos = []
+for st in listPos:
+    stt = "[" + st + "]"
+    temp = eval(stt)
+    ansPos.append(temp)
+# other data
 with open("rawVertex.csv", "r") as inFile:
     line = inFile.readline()
     l = line.replace('|', '').replace('\"', '\'').split('}, {')
 with open("rawVertex.json", "w") as outFile:
+    i = 0
     for st in l:
         stt = '{' + st + '}'
         stt = stt.replace('{', '{\'').replace(':', '\':').replace(', ', ', \'')
@@ -48,6 +59,11 @@ with open("rawVertex.json", "w") as outFile:
         data["num"] = int(num) if num else None
         phi = data["phi"]
         data["phi"] = float(phi) if phi else 0
+        color = data["color"]
+        data["color"] = color if color else "#000000"
+        pos = ansPos[i]
+        data["pos"] = pos if pos else [0, 0]
+        i += 1
         # save
         dump(data, outFile)
         outFile.write('\n')

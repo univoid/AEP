@@ -36,11 +36,14 @@ type = G.new_vertex_property("string")  # type of point
 phi = G.new_vertex_property("float")    # inner radian
 b = G.new_vertex_property("int")        # supply
 r = G.new_vertex_property("int")        # receive
+color = G.new_vertex_property("string")         # color
+pos = G.new_vertex_property("vector<double>")   # position
+size = G.new_vertex_property("int")             # size
 # create edge's properties
-length = G.new_edge_property("float")     # length of road
-width = G.new_edge_property("float")      # width of road
-slope = G.new_edge_property("int")      # slope of road
-sat = G.new_edge_property("bool")        # saturation flag
+length = G.new_edge_property("float")       # length of road
+width = G.new_edge_property("float")        # width of road
+slope = G.new_edge_property("int")          # slope of road
+sat = G.new_edge_property("bool")           # saturation flag
 
 
 # input
@@ -62,11 +65,22 @@ for item in rawVList:
     b[v] = item["b"]
     r[v] = item["r"]
     phi[v] = item["phi"]
+    color[v] = item["color"]
+    pos[v] = item["pos"]
+    if color[v] == "#4f8f00":
+        size[v] = 10
+    elif color[v] == "#919191":
+        size[v] = 7
+    else:
+        size[v] = 5
 
 # graph properties
 S[G] = []
-S[G].extend(range(0, 8))
+# S[G].extend(range(0, 8))
 # B[G] = G.vertices()
+
+# draw graph
+graph_draw(G, pos=pos, vertex_size=size, vertex_fill_color=color, output="OriginalGraph.pdf")
 
 # save properties
 # G.graph_properties["B"] = B
@@ -75,11 +89,14 @@ G.vertex_properties["type"] = type
 G.vertex_properties["phi"] = phi
 G.vertex_properties["b"] = b
 G.vertex_properties["r"] = r
+G.vertex_properties["color"] = color
+G.vertex_properties["pos"] = pos
+G.vertex_properties["size"] = size
 G.edge_properties["length"] = length
 G.edge_properties["width"] = width
 G.edge_properties["slope"] = slope
 G.edge_properties["sat"] = sat
 
 # save Original Graph
-G.save("OrignalGraph.xml.gz")
-G.save("OrignalGraph.xml")
+G.save("OriginalGraph.xml.gz")
+G.save("OriginalGraph.xml")
