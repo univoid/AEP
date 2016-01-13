@@ -2,7 +2,7 @@ from graph_tool.all import *
 from time_expand import time_expand
 # CONSTANT
 # sum of evacuees
-SUM_EVACUEE = 48000     # person
+SUM_EVACUEE = 46355     # person
 
 # load transit Network
 N = load_graph("TransitNetwork.xml.gz")

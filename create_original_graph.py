@@ -79,9 +79,6 @@ S[G] = []
 # S[G].extend(range(0, 8))
 # B[G] = G.vertices()
 
-# draw graph
-graph_draw(G, pos=pos, vertex_size=size, vertex_fill_color=color, output="OriginalGraph.pdf")
-
 # save properties
 # G.graph_properties["B"] = B
 G.graph_properties["S"] = S
@@ -96,6 +93,9 @@ G.edge_properties["length"] = length
 G.edge_properties["width"] = width
 G.edge_properties["slope"] = slope
 G.edge_properties["sat"] = sat
+
+# draw graph
+graph_draw(G, pos=pos, vertex_size=size, vertex_fill_color=color, output="OriginalGraph.pdf")
 
 # save Original Graph
 G.save("OriginalGraph.xml.gz")
