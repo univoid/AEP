@@ -76,7 +76,7 @@ for item in rawVList:
 
 # graph properties
 S[G] = []
-# S[G].extend(range(0, 8))
+S[G].extend(range(0, 8))
 # B[G] = G.vertices()
 
 # save properties
