@@ -37,21 +37,6 @@ print "Sum of Evacuees is {}".format(SUM_EVACUEE)
 time = 0                    # the time slide at this moment
 maxFlow = 0                 # the value of max flow
 while maxFlow < SUM_EVACUEE:
-    # DEBUG
-    if time == 90:
-        print "residual evacuees"
-        for e in B_s.out_edges():
-            if res[e] > 0:
-                print num[e.target()], cap[e], res[e]
-
-        print "residual capacity of refuges"
-        for e in stl[time].in_edges():
-            fr = e.source()
-            if fr in vl[time]:
-                print num[fr], cap[e], res[e]
-
-        break
-
     # expand N_s with time slide
     if time > 0:
         time_expand(time, N_s, vl, stl, N)
@@ -63,10 +48,32 @@ while maxFlow < SUM_EVACUEE:
     # get value of maxFlow
     nowCap = sum(cap[e] for e in stl[time].in_edges())
     nowRes = sum(res[e] for e in stl[time].in_edges())
-    print maxFlow + nowCap
+    #print maxFlow + nowCap
     maxFlow = sum((cap[e]-res[e]) for e in S_s.in_edges())
     print('time slide {}: sum flow {}, now flow {}, cap {}, residual {} '.
           format(time, maxFlow, nowCap-nowRes, nowCap, nowRes))
+    # # DEBUG
+    # for e in S_s.in_edges():
+    #     print "    {}".format(cap[e]-res[e])
+    #
+    # print
+    # # DEBUG
+    # # if time == 90:
+    # #     print "residual evacuees"
+    # #     for e in B_s.out_edges():
+    # #         if res[e] > 0:
+    # #             print num[e.target()], cap[e], res[e]
+    # #
+    # #     print "residual capacity of refuges"
+    # #     for e in stl[time].in_edges():
+    # #         fr = e.source()
+    # #         if fr in vl[time]:
+    # #             print num[fr], cap[e], res[e]
+    # #
+    # #     break
+    # if time == 15:
+    #     break
+
     time += 1
 
 

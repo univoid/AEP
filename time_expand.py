@@ -1,5 +1,5 @@
 # CONSTANT
-BIGNUM = 2333
+BIGNUM = 2222
 INF = 23333
 
 
@@ -10,7 +10,7 @@ def time_expand(time, N_s, vl, stl, N):
     cap0 = N.edge_properties["cap"]         # traffic capacity
     tm0 = N.edge_properties["tm"]           # transit time
     S = N.graph_properties["S"]             # sinks index list
-
+    r = N.vertex_properties["r"]             # capacity of refuges
     # read TENetwork properties
     num = N_s.vertex_properties["num"]      # index of vertex Mapping to  transitNetwork
     cap = N_s.edge_properties["cap"]        # edges capacity
@@ -30,12 +30,6 @@ def time_expand(time, N_s, vl, stl, N):
         target_index = N.vertex_index[v]    # index of the original of now vertex
         target = v_s                        # now vertex
 
-        # add 'wait here' edges
-        source = vl[time-1][target_index]   # now vertex when 1 time slide before in TENet
-        e_s = N_s.add_edge(source, target)
-        res[e_s] = BIGNUM
-        cap[e_s] = BIGNUM
-
         # add 'go ahead' edges
         for e in v.in_edges():
             if time - tm0[e] >= 0:
@@ -45,13 +39,23 @@ def time_expand(time, N_s, vl, stl, N):
                 res[e_s] = cap0[e]
                 cap[e_s] = cap0[e]
 
-        # add escape accept edges
         if N.vertex_index[v] in S:
+            # add escape accept edges
             e_s = N_s.add_edge(v_s, S_t)                # new sink edge
-            source = vl[time - 1][target_index]           # now vertex when 1 time slide before in TENet
-            e_t = N_s.edge(source, stl[time - 1])       # edge a time slide before
-            res[e_s] = res[e_t]
-            cap[e_s] = res[e_t]
+            ct = 0                                    # used capacity of refuge until now
+            for tt in range(0, time):
+                source = vl[tt][target_index]     # now vertex when 1 time slide before in TENet
+                e = N_s.edge(source, stl[tt])       # edge a time slide before
+                ct += cap[e]-res[e]
+
+            res[e_s] = r[v] - ct
+            cap[e_s] = r[v] - ct
+        else:
+            # add 'wait here' edges
+            source = vl[time-1][target_index]   # now vertex when 1 time slide before in TENet
+            e_s = N_s.add_edge(source, target)
+            res[e_s] = BIGNUM
+            cap[e_s] = BIGNUM
 
     # connect S_t to Super S_s
     e_s = N_s.add_edge(S_t, S_s)
