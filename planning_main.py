@@ -1,5 +1,7 @@
 from graph_tool.all import *
 from time_expand import time_expand
+import json
+
 # CONSTANT
 # sum of evacuees
 # SUM_EVACUEE = 46355     # person
@@ -20,6 +22,13 @@ res = N_s.edge_properties["res"]        # edges residual
 B_s = N_s.vertex(N_s.graph_properties["B_s"])         # super source
 S_s = N_s.vertex(N_s.graph_properties["S_s"])         # super sink
 
+# initialize json (save answer)
+data = dict()
+data["time"] = list()
+data["sumFlow"] = list()
+data["nowFlow"] = list()
+
+
 # list initial
 vl = list()                         # time slide supply list
 vl.append([])                       # append vertices of time 0
@@ -35,8 +44,8 @@ for v in N_s.vertices():
 SUM_EVACUEE = sum(cap[e] for e in B_s.out_edges())
 print "Sum of Evacuees is {}".format(SUM_EVACUEE)
 time = 0                    # the time slide at this moment
-maxFlow = 0                 # the value of max flow
-while maxFlow < SUM_EVACUEE:
+sumFlow = 0                 # the value of max flow
+while sumFlow < SUM_EVACUEE:
     # expand N_s with time slide
     if time > 0:
         time_expand(time, N_s, vl, stl, N)
@@ -48,10 +57,16 @@ while maxFlow < SUM_EVACUEE:
     # get value of maxFlow
     nowCap = sum(cap[e] for e in stl[time].in_edges())
     nowRes = sum(res[e] for e in stl[time].in_edges())
-    #print maxFlow + nowCap
-    maxFlow = sum((cap[e]-res[e]) for e in S_s.in_edges())
+
+    sumFlow = sum((cap[e]-res[e]) for e in S_s.in_edges())
+    nowFlow = nowCap - nowRes
     print('time slide {}: sum flow {}, now flow {}, cap {}, residual {} '.
-          format(time, maxFlow, nowCap-nowRes, nowCap, nowRes))
+          format(time, sumFlow, nowFlow, nowCap, nowRes))
+
+    # save to Answer
+    data["time"].append(time)
+    data["sumFlow"].append(sumFlow)
+    data["nowFlow"].append(nowFlow)
     # # DEBUG
     # for e in S_s.in_edges():
     #     print "    {}".format(cap[e]-res[e])
@@ -79,6 +94,10 @@ while maxFlow < SUM_EVACUEE:
 
 # print total time of Evacuation
 print('total time of Evacuation is {}'.format(time))
+
+# save answer to json
+with open("answer.json", "w") as outFile:
+    json.dump(data, outFile)
 
 # save Omage Graph
 N_s.save("OmageGraph.xml.gz")
