@@ -27,9 +27,8 @@ planning_main(inFile1="TransitNetwork", inFile2="TimeExpandedNetwork0", outFile=
 initialise_graph(inFile="TransitNetwork_c", outFile="TimeExpandedNetwork0_c")
 planning_main(inFile1="TransitNetwork_c", inFile2="TimeExpandedNetwork0_c", outFile="OmegaGraph_c")
 
+
 # compare result
 # output plot Figures
 plot_figure(inFile="OmegaGraph", outFile="testGroup")
 plot_figure(inFile="OmegaGraph_c", outFile="controlGroup")
-# output route
-

@@ -41,5 +41,6 @@ def route_extract(inFile1, inFile2, outFile, departure):
     search_route(N_o.vertex(departure+3), N, f, num, flow)
 
     # draw graph
-    graph_draw(N, pos=pos, vertex_size=size, vertex_fill_color=color,
-               edge_pen_width=prop_to_size(flow, mi=0, ma=4, power=1), output="result" + outFile + ".pdf")
+    graph_draw(N, pos=pos, vertex_size=size, vertex_fill_color=color, output_size=(400, 600),
+               edge_pen_width=prop_to_size(flow, mi=0, ma=3, power=1),
+               output="result/" + outFile + ".pdf")
