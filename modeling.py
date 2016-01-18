@@ -57,7 +57,7 @@ cap = N.new_edge_property("int")
 tm = N.new_edge_property("int")
 
 # modify edges
-for e in G.edges():
+for e in N.edges():
     if sat[e]:
         cap[e] = width[e] * RHO_OPT * DELTA_T
         tm[e] = length[e] // (V_OPT * h(slope[e]) * DELTA_T)
