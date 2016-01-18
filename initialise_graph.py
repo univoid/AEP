@@ -28,6 +28,7 @@ S_s[N_s] = N_s.vertex_index[N_s.add_vertex()]
 # initialise distribution of spot
 
 S_t = N_s.add_vertex()                  # super sink of time 0
+
 # print N_s.vertex_index[S_t]
 for v in N.vertices():
     # add new vertex to N_s as v_s
@@ -41,9 +42,9 @@ for v in N.vertices():
         res[e_s] = r[v]
         cap[e_s] = r[v]
         # # initialise Distribution of Evacuees
-        # e_s = N_s.add_edge(B_s[N_s], v_s)  # add supply edge
-        # res[e_s] = b[v]
-        # cap[e_s] = b[v]
+        e_s = N_s.add_edge(B_s[N_s], v_s)  # add supply edge
+        res[e_s] = b[v]
+        cap[e_s] = b[v]
     else:
         # if v in B:
         # initialise Distribution of Evacuees

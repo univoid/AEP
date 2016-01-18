@@ -99,5 +99,11 @@ print('total time of Evacuation is {}'.format(time))
 with open("answer.json", "w") as outFile:
     json.dump(data, outFile)
 
-# save Omage Graph
+# save flow property
+f = N_s.new_edge_property("int")
+for e in N_s.edges():
+    f[e] = cap[e] - res[e]
+N_s.edge_properties["f"] = f
+
+# save as Omage Graph
 N_s.save("OmageGraph.xml.gz")
