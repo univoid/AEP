@@ -18,6 +18,7 @@ def time_expand(time, N_s, vl, stl, N):
     S_s = N_s.vertex(N_s.graph_properties["S_s"])       # super sink
 
     S_t = N_s.add_vertex()                  # super sink of certain time
+    num[S_t] = -1
     stl.append(S_t)
     # iterate original vertex
     for v in N.vertices():

@@ -2,15 +2,14 @@ from graph_tool.all import *
 
 
 def search_route(now, N, f, num, flow):
-    if num[now] > 0:
+    if num[now] >= 0:
         for e in now.out_edges():
-            if f[e] != 0:
-                source = N.vertex(num[e.source()])
+            if (f[e] > 0)and (num[e.target()] >= 0):
+                source = N.vertex(num[now])
                 target = N.vertex(num[e.target()])
-                if source != target and target != 0:
+                if source != target:
                     e_n = N.edge(source, target)
                     flow[e_n] += f[e]
-
                 search_route(e.target(), N, f, num, flow)
     else:
         return

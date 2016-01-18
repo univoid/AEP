@@ -30,7 +30,7 @@ def initialise_graph(inFile, outFile):
     # initialise distribution of spot
 
     S_t = N_s.add_vertex()                  # super sink of time 0
-
+    num[S_t] = -1
     # print N_s.vertex_index[S_t]
     for v in N.vertices():
         # add new vertex to N_s as v_s
