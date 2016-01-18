@@ -15,28 +15,31 @@ def search_route(now, N, f, num, flow):
     else:
         return
 
-# load transit Network
-N = load_graph("TransitNetwork.xml.gz")
-# load Omage Graph
-N_o = load_graph("OmageGraph.xml.gz")
 
-# read or delete vertex's properties
-color = N.vertex_properties["color"]    # color
-pos = N.vertex_properties["pos"]        # position
-size = N.vertex_properties["size"]      # size
-# read edges' properties
-cap = N.edge_properties["cap"]
-tm = N.edge_properties["tm"]
+def route_extract(inFile1, inFile2, outFile, departure):
+    # load transit Network
+    N = load_graph(inFile1 + ".xml.gz")
+    # load Omage Graph
+    N_o = load_graph(inFile2 + ".xml.gz")
 
-# read properties from Omage Graph
-f = N_o.edge_properties["f"]
-num = N_o.vertex_properties["num"]
+    # read or delete vertex's properties
+    color = N.vertex_properties["color"]    # color
+    pos = N.vertex_properties["pos"]        # position
+    size = N.vertex_properties["size"]      # size
+    # read edges' properties
+    cap = N.edge_properties["cap"]
+    tm = N.edge_properties["tm"]
 
-# create new edges' properties
-flow = N.new_edge_property("int")
+    # read properties from Omage Graph
+    f = N_o.edge_properties["f"]
+    num = N_o.vertex_properties["num"]
 
-# example begin from point No.103
-search_route(N_o.vertex(103+3), N, f, num, flow)
+    # create new edges' properties
+    flow = N.new_edge_property("int")
 
-# draw graph
-graph_draw(N, pos=pos, vertex_size=size, vertex_fill_color=color, edge_pen_width=prop_to_size(flow, mi=0, ma=4, power=1), output="route.pdf")
+    # example begin from point No.(departure)
+    search_route(N_o.vertex(departure+3), N, f, num, flow)
+
+    # draw graph
+    graph_draw(N, pos=pos, vertex_size=size, vertex_fill_color=color,
+               edge_pen_width=prop_to_size(flow, mi=0, ma=4, power=1), output=outFile + ".pdf")
