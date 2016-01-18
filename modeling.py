@@ -35,7 +35,7 @@ def g(u, cap):
 
 def modeling(inFile, outFile):
     # G: Original Graph
-    G = load_graph(inFile + ".xml.gz")
+    G = load_graph("xml/" + inFile + ".xml.gz")
     # N: Transit Network
     N = G.copy()
 
@@ -87,7 +87,8 @@ def modeling(inFile, outFile):
     del N.edge_properties["sat"]
 
     # draw graph
-    graph_draw(N, pos=pos, vertex_size=size, vertex_fill_color=color, edge_pen_width=prop_to_size(cap, mi=0, ma=3, power=1), output=outFile + ".pdf")
+    graph_draw(N, pos=pos, vertex_size=size, vertex_fill_color=color,
+               edge_pen_width=prop_to_size(cap, mi=0.5, ma=3, power=1), output="pdf/" + outFile + ".pdf")
 
     # save transit network
-    N.save(outFile + ".xml.gz")
+    N.save("xml/" + outFile + ".xml.gz")

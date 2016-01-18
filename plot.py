@@ -2,8 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import json
 
+
 def plot_figure(inFile, outFile):
-    with open(inFile + ".json", "r") as inFile:
+    with open("json/" + inFile + ".json", "r") as inFile:
         data = json.load(inFile)
 
     plt.figure(1)
@@ -21,5 +22,5 @@ def plot_figure(inFile, outFile):
 
     # save and show
     plt.tight_layout()
-    plt.savefig(outFile + ".pdf")
+    plt.savefig("result/" + outFile + ".pdf")
     # plt.show()

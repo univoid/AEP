@@ -18,9 +18,9 @@ def search_route(now, N, f, num, flow):
 
 def route_extract(inFile1, inFile2, outFile, departure):
     # load transit Network
-    N = load_graph(inFile1 + ".xml.gz")
+    N = load_graph("xml/" + inFile1 + ".xml.gz")
     # load Omage Graph
-    N_o = load_graph(inFile2 + ".xml.gz")
+    N_o = load_graph("xml/" + inFile2 + ".xml.gz")
 
     # read or delete vertex's properties
     color = N.vertex_properties["color"]    # color
@@ -42,4 +42,4 @@ def route_extract(inFile1, inFile2, outFile, departure):
 
     # draw graph
     graph_draw(N, pos=pos, vertex_size=size, vertex_fill_color=color,
-               edge_pen_width=prop_to_size(flow, mi=0, ma=4, power=1), output=outFile + ".pdf")
+               edge_pen_width=prop_to_size(flow, mi=0, ma=4, power=1), output="result" + outFile + ".pdf")

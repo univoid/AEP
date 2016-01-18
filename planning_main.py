@@ -9,9 +9,9 @@ import json
 
 def planning_main(inFile1, inFile2, outFile):
     # load transit Network
-    N = load_graph(inFile1 + ".xml.gz")
+    N = load_graph("xml/" + inFile1 + ".xml.gz")
     # load initial network from initialise_graph
-    N_s = load_graph(inFile2 + ".xml.gz")
+    N_s = load_graph("xml/" + inFile2 + ".xml.gz")
 
     # read transitNetwork properties
     # cap0 = N.edge_properties["b"]        # traffic capacity
@@ -98,8 +98,8 @@ def planning_main(inFile1, inFile2, outFile):
     print('total time of Evacuation is {}'.format(time))
 
     # save answer to json
-    with open(outFile + ".json", "w") as outFile:
-        json.dump(data, outFile)
+    with open("json/" + outFile + ".json", "w") as output:
+        json.dump(data, output)
 
     # save flow property
     f = N_s.new_edge_property("int")
@@ -107,5 +107,7 @@ def planning_main(inFile1, inFile2, outFile):
         f[e] = cap[e] - res[e]
     N_s.edge_properties["f"] = f
 
-    # save as Omage Graph
-    N_s.save(outFile + ".xml.gz")
+    # save as Omega Graph
+    N_s.save("xml/" + outFile + ".xml.gz")
+
+

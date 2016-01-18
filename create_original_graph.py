@@ -7,12 +7,12 @@ def create_original_graph(outFile):
     rawVList = []
     # read raw data from json file
     # read edge
-    with open("rawEdge.json", "r") as infile:
+    with open("json/rawEdge.json", "r") as infile:
         for line in infile:
             data = loads(line)
             rawEList.append(data)
     # read vertex
-    with open("rawVertex.json", "r") as infile:
+    with open("json/rawVertex.json", "r") as infile:
         for line in infile:
             data = loads(line)
             rawVList.append(data)
@@ -97,8 +97,8 @@ def create_original_graph(outFile):
     G.edge_properties["sat"] = sat
 
     # draw graph
-    graph_draw(G, pos=pos, vertex_size=size, vertex_fill_color=color, output=outFile + ".pdf")
+    graph_draw(G, pos=pos, vertex_size=size, vertex_fill_color=color, output="pdf/" + outFile + ".pdf")
 
     # save Original Graph
-    G.save(outFile + ".xml.gz")
+    G.save("xml/" + outFile + ".xml.gz")
 

@@ -21,15 +21,15 @@ modeling_c(inFile="OriginalGraph_c", outFile="TransitNetwork_c")
 # planning
 # test group
 initialise_graph(inFile="TransitNetwork", outFile="TimeExpandedNetwork0")
-planning_main(inFile1="TransitNetwork",inFile2="TimeExpandedNetwork0", outFile="OmegaGraph")
+planning_main(inFile1="TransitNetwork", inFile2="TimeExpandedNetwork0", outFile="OmegaGraph")
 
 # control group
 initialise_graph(inFile="TransitNetwork_c", outFile="TimeExpandedNetwork0_c")
-planning_main(inFile1="TransitNetwork_c",inFile2="TimeExpandedNetwork0_c", outFile="OmegaGraph_c")
+planning_main(inFile1="TransitNetwork_c", inFile2="TimeExpandedNetwork0_c", outFile="OmegaGraph_c")
 
 # compare result
 # output plot Figures
-plot_figure(inFile="OmegaGraph",outFile="testGroup")
-plot_figure(inFile="OmegaGraph_c",outFile="controlGroup")
+plot_figure(inFile="OmegaGraph", outFile="testGroup")
+plot_figure(inFile="OmegaGraph_c", outFile="controlGroup")
 # output route
 

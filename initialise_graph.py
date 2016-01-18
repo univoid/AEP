@@ -5,7 +5,7 @@ INF = 23333
 
 def initialise_graph(inFile, outFile):
     # N: transit network
-    N = load_graph(inFile + ".xml.gz")
+    N = load_graph("xml/" + inFile + ".xml.gz")
     # N_s: time expanded network
     N_s = Graph()
 
@@ -67,5 +67,5 @@ def initialise_graph(inFile, outFile):
     N_s.graph_properties["B_s"] = B_s
     N_s.graph_properties["S_s"] = S_s
 
-    graph_draw(N_s, output=outFile + ".pdf")
-    N_s.save(outFile + ".xml.gz")
+    graph_draw(N_s, output="pdf/" + outFile + ".pdf")
+    N_s.save("xml/" + outFile + ".xml.gz")
